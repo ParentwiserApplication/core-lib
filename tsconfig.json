@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"],
-      "parentwiser-core/*": ["node_modules/parentwiser-core/*"]
+      "core-lib/*": ["node_modules/parentwiser-core/*"]
     },
     "moduleResolution": "node",
     "typeRoots": ["./node_modules/@types", "./node_modules"]
