@@ -1,18 +1,16 @@
-import axios, { AxiosInstance } from 'axios';
+const axios = require('axios');
 
 class UserApiClient {
-    private client: AxiosInstance;
-
-    constructor(baseURL: string, token?: string) {
+    constructor(baseURL, token) {
         this.client = axios.create({
             baseURL: baseURL,
             headers: token ? { Authorization: `${token}` } : {}
         });
     }
 
-    async getUser(id: string) {
+    async getUser(id) {
         try {
-            const response = await this.client.get('/user/'+id);
+            const response = await this.client.get('/user/' + id);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -20,7 +18,7 @@ class UserApiClient {
         }
     }
 
-    async getUsers(endpoint: string, filters: any) {
+    async getUsers(endpoint, filters) {
         try {
             const response = await this.client.post('/user', filters);
             return response.data;
@@ -29,8 +27,6 @@ class UserApiClient {
             throw error;
         }
     }
-
-
 }
 
-export default UserApiClient;
+module.exports = UserApiClient;
