@@ -6,7 +6,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"],
+      "parentwiser-core/*": ["node_modules/parentwiser-core/*"]
+    },
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "./node_modules"]
   },
   "include": ["src"]
 }
