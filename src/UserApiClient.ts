@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-class UserService {
+class UserApiClient {
     private client: AxiosInstance;
 
     constructor(baseURL: string, token?: string) {
@@ -33,4 +33,4 @@ class UserService {
 
 }
 
-export default UserService;
+export default UserApiClient;
