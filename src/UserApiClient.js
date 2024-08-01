@@ -11,7 +11,7 @@ class UserApiClient {
     async getUser(id) {
         try {
             const response = await this.client.get('/user/' + id);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -21,7 +21,7 @@ class UserApiClient {
     async getUsers(endpoint, filters) {
         try {
             const response = await this.client.post('/user', filters);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error(error);
             throw error;
