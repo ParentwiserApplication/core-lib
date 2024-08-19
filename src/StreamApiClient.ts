@@ -10,7 +10,7 @@ export default class StreamApiClient {
         });
     }
 
-    async uploadFile(file: File, dimension: string, keepOriginal: boolean): Promise<any> {
+    async uploadFile(file: any, dimension: string, keepOriginal: boolean): Promise<any> {
         try {
             const response = await this.client.post('/upload', {
                 file,
