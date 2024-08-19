@@ -1,22 +1,20 @@
-import axios, {AxiosInstance} from 'axios';
+const axios = require('axios');
 
-export default class NotificationApiClient {
-    private client: AxiosInstance;
-
-    constructor(baseUrl: string, token?: string) {
+class NotificationApiClient {
+    constructor(baseUrl, token) {
         this.client = axios.create({
             baseURL: baseUrl,
-            headers: token ? {Authorization: `${token}`} : {},
+            headers: token ? { Authorization: `${token}` } : {},
         });
     }
 
     async sendPushNotification(
-        notificationSubject: string,
-        notificationContent: string,
-        pushNotificationTokens: string[],
-        notificationTarget: string,
-        notificationTargetDetail: string
-    ): Promise<any> {
+        notificationSubject,
+        notificationContent,
+        pushNotificationTokens,
+        notificationTarget,
+        notificationTargetDetail
+    ) {
         try {
             const response = await this.client.post('/push/send/notification', {
                 notificationSubject,
@@ -33,11 +31,11 @@ export default class NotificationApiClient {
     }
 
     async sendTaskMail(
-        toEmail: string,
-        notificationSubject: string,
-        notificationContent: string,
-        nameOfUser: string = ''
-    ): Promise<any> {
+        toEmail,
+        notificationSubject,
+        notificationContent,
+        nameOfUser = ''
+    ) {
         try {
             const response = await this.client.post('/mail/send/task', {
                 toEmail,
@@ -52,3 +50,5 @@ export default class NotificationApiClient {
         }
     }
 }
+
+module.exports = NotificationApiClient;
