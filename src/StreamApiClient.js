@@ -1,16 +1,14 @@
-import axios, {AxiosInstance} from 'axios';
+const axios = require('axios');
 
-export default class StreamApiClient {
-    private client: AxiosInstance;
-
-    constructor(baseURL: string, token?: string) {
+class StreamApiClient {
+    constructor(baseURL, token) {
         this.client = axios.create({
             baseURL: baseURL,
-            headers: token ? {Authorization: `${token}`} : {}
+            headers: token ? { Authorization: `${token}` } : {},
         });
     }
 
-    async uploadFile(file: any, dimension: string, keepOriginal: boolean): Promise<any> {
+    async uploadFile(file, dimension, keepOriginal) {
         try {
             const response = await this.client.post('/upload', {
                 file,
@@ -24,7 +22,7 @@ export default class StreamApiClient {
         }
     }
 
-    async getFileLink(fileId: string): Promise<any> {
+    async getFileLink(fileId) {
         try {
             const response = await this.client.get(`/file/${fileId}`);
             return response.data.data;
@@ -34,3 +32,5 @@ export default class StreamApiClient {
         }
     }
 }
+
+module.exports = StreamApiClient;
