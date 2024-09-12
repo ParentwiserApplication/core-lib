@@ -6,3 +6,4 @@ export { default as validate } from './helpers/validate';
 export { default as required } from './helpers/argumentRequired';
 
 export { default as CacheKeys } from './helpers/cacheKeys';
+export { default as Hashing } from './hashing';
