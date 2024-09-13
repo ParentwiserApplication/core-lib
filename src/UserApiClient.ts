@@ -1,6 +1,16 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 
 
+interface IUpdateUser {
+    name?:string,
+    email?:string
+    phone?:number,
+    gender?:string,
+    parentType?:string,
+    marriageStatus?:string,
+    lastLearnWithQuestionOrder?: number | null,
+    iyzicoCardUserKey?: string | null
+}
 
 class UserApiClient {
     private client: AxiosInstance;
@@ -26,6 +36,16 @@ class UserApiClient {
         try {
             const response = await this.client.get(`/user/${id}`);
             return response.data.data;
+        } catch (error) {
+            this.handleError(error);
+            throw error;
+        }
+    }
+
+    async updateUser(id:string, user:IUpdateUser): Promise<any> {
+        try {
+            const response = await this.client.put(`/user/${id}`, user)
+            return response.data.data
         } catch (error) {
             this.handleError(error);
             throw error;
