@@ -56,6 +56,21 @@ class UserApiClient {
             }
         });
     }
+    makePremium(id, premiumEndsAt) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.client.post(`/user/makePremium`, {
+                    userId: id,
+                    premiumEndsAt: premiumEndsAt
+                });
+                return response.data.data;
+            }
+            catch (error) {
+                this.handleError(error);
+                throw error;
+            }
+        });
+    }
     handleError(error) {
         if (error.response) {
             console.error('Error Response:', error.response.data);

@@ -14,6 +14,7 @@ declare class UserApiClient {
     getUsers(file: string, dimension: string, keepOriginal: boolean): Promise<any>;
     getUser(id: string): Promise<any>;
     updateUser(id: string, user: IUpdateUser): Promise<any>;
+    makePremium(id: string, premiumEndsAt: Date): Promise<any>;
     private handleError;
 }
 export default UserApiClient;

@@ -52,6 +52,19 @@ class UserApiClient {
         }
     }
 
+    async makePremium(id:string, premiumEndsAt:Date): Promise<any> {
+        try {
+            const response = await this.client.post(`/user/makePremium`, {
+                userId:id,
+                premiumEndsAt: premiumEndsAt
+            })
+            return response.data.data
+        } catch (error) {
+            this.handleError(error);
+            throw error;
+        }
+    }
+
     private handleError(error: AxiosError): void {
         if (error.response) {
             console.error('Error Response:', error.response.data);
