@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Hashing = exports.CacheKeys = exports.required = exports.validate = exports.ParentSchoolApiClient = exports.TrainingSetApiClient = exports.ArticleApiClient = exports.ChildApiClient = exports.UserApiClient = exports.NotificationApiClient = exports.StreamApiClient = void 0;
+exports.Hashing = exports.CacheKeys = exports.required = exports.validate = exports.PremiumCodeApiClient = exports.ParentSchoolApiClient = exports.TrainingSetApiClient = exports.ArticleApiClient = exports.ChildApiClient = exports.UserApiClient = exports.NotificationApiClient = exports.StreamApiClient = void 0;
 var StreamApiClient_1 = require("./StreamApiClient");
 Object.defineProperty(exports, "StreamApiClient", { enumerable: true, get: function () { return __importDefault(StreamApiClient_1).default; } });
 var NotificationApiClient_1 = require("./NotificationApiClient");
@@ -18,6 +18,8 @@ var TrainingSetApiClient_1 = require("./TrainingSetApiClient");
 Object.defineProperty(exports, "TrainingSetApiClient", { enumerable: true, get: function () { return __importDefault(TrainingSetApiClient_1).default; } });
 var ParentSchoolApiClient_1 = require("./ParentSchoolApiClient");
 Object.defineProperty(exports, "ParentSchoolApiClient", { enumerable: true, get: function () { return __importDefault(ParentSchoolApiClient_1).default; } });
+var PremiumCodeApiClient_1 = require("./PremiumCodeApiClient");
+Object.defineProperty(exports, "PremiumCodeApiClient", { enumerable: true, get: function () { return __importDefault(PremiumCodeApiClient_1).default; } });
 var validate_1 = require("./helpers/validate");
 Object.defineProperty(exports, "validate", { enumerable: true, get: function () { return __importDefault(validate_1).default; } });
 var argumentRequired_1 = require("./helpers/argumentRequired");
