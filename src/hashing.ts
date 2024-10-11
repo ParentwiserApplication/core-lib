@@ -1,4 +1,6 @@
 import * as crypto from 'crypto';
+import * as cryptoJS from "crypto-js";
+import jwt from "jsonwebtoken";
 
 class Hashing {
     private static algorithm: string = 'aes-256-cbc';
@@ -29,6 +31,14 @@ class Hashing {
         decrypted += decipher.final('utf8');
 
         return decrypted;
+    }
+
+    protected encrypt(data: any, secret: string) {
+        return cryptoJS.AES.encrypt(JSON.stringify(data), secret).toString();
+    }
+
+    public async generateM2MAuthToken(userId): Promise<any> {
+        return jwt.sign({data: this.encrypt(userId + '_' + Date.now(), process.env.TOKEN_SECRET)}, process.env.TOKEN_SECRET);
     }
 }
 
