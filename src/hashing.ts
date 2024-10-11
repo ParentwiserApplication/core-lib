@@ -37,8 +37,17 @@ class Hashing {
         return cryptoJS.AES.encrypt(JSON.stringify(data), secret).toString();
     }
 
-    public async generateM2MAuthToken(userId): Promise<any> {
-        return jwt.sign({data: this.encrypt(userId + '_' + Date.now(), process.env.TOKEN_SECRET)}, process.env.TOKEN_SECRET);
+    public decrypt(data: any, secret: string) {
+        let result = "";
+        const bytes = cryptoJS.AES.decrypt(data, secret).toString(cryptoJS.enc.Utf8);
+        if (bytes) {
+            result = JSON.parse(bytes);
+        }
+        return result;
+    }
+
+    public async generateM2MAuthToken(userId, secret): Promise<any> {
+        return jwt.sign({data: this.encrypt(userId + '_' + Date.now(), secret)}, secret);
     }
 }
 
