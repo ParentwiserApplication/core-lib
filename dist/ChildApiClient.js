@@ -20,8 +20,8 @@ class ChildApiClient {
             headers: token ? { Authorization: `${token}` } : {}
         });
     }
-    createChild(name_1, dateOfBirth_1, gender_1, schoolId_1, classId_1) {
-        return __awaiter(this, arguments, void 0, function* (name, dateOfBirth, gender, schoolId, classId, parentIds = []) {
+    createChild(name, dateOfBirth, gender, schoolId, classId, parentIds = []) {
+        return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield this.client.post(`/child/`, {
                     name,

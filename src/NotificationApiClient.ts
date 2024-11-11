@@ -62,6 +62,22 @@ class NotificationApiClient {
         }
     }
 
+    async sendSMS(
+        phone: string,
+        message: string,
+    ): Promise<SendTaskMailResponse> {
+        try {
+            const response = await this.client.post('/sms/send/sms', {
+                phone,
+                message,
+            });
+            return response.data.data;
+        } catch (error) {
+            this.handleError(error);
+            throw error;
+        }
+    }
+
     private handleError(error: AxiosError): void {
         if (error.response) {
             console.error('Error Response:', error.response.data);

@@ -5,5 +5,5 @@ class CacheKeys {
         return `user:${userId}`;
     }
 }
-CacheKeys.USER = 'user:';
 exports.default = CacheKeys;
+CacheKeys.USER = 'user:';
