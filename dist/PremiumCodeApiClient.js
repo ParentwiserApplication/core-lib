@@ -20,8 +20,8 @@ class PremiumCodeApiClient {
             headers: token ? { Authorization: `${token}` } : {},
         });
     }
-    create(userId, maxUsageCount = 1, childId, startDatetime = new Date(), dayCount = 30, schoolId) {
-        return __awaiter(this, void 0, void 0, function* () {
+    create(userId_1) {
+        return __awaiter(this, arguments, void 0, function* (userId, maxUsageCount = 1, childId, startDatetime = new Date(), dayCount = 30, schoolId) {
             try {
                 const response = yield this.client.post(`/premiumCode/code`, {
                     userId,
