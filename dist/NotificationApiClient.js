@@ -70,6 +70,30 @@ class NotificationApiClient {
             }
         });
     }
+    sendOTP(otp, phone, email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (phone) {
+                    const response = yield this.client.post('/sms/send/sms', {
+                        phone,
+                        message: `ParentWiser güvenlik kodunuz: ${otp}`,
+                    });
+                    return response.data.data;
+                }
+                else {
+                    const response = yield this.client.post('/mail/send/otp', {
+                        toEmail: email,
+                        otp
+                    });
+                    return response.data.data;
+                }
+            }
+            catch (error) {
+                this.handleError(error);
+                throw error;
+            }
+        });
+    }
     handleError(error) {
         if (error.response) {
             console.error('Error Response:', error.response.data);

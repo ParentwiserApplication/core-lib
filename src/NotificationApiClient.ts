@@ -78,6 +78,32 @@ class NotificationApiClient {
         }
     }
 
+    async sendOTP(
+        otp:string,
+        phone?:string,
+        email?:string,
+    ): Promise<SendTaskMailResponse> {
+        try {
+            if(phone) {
+                const response = await this.client.post('/sms/send/sms', {
+                    phone,
+                    message: `ParentWiser güvenlik kodunuz: ${otp}`,
+                });
+                return response.data.data;
+            } else {
+                const response = await this.client.post('/mail/send/otp', {
+                    toEmail:email,
+                    otp
+                });
+                return response.data.data;
+            }
+            
+        } catch (error) {
+            this.handleError(error);
+            throw error;
+        }
+    }
+
     private handleError(error: AxiosError): void {
         if (error.response) {
             console.error('Error Response:', error.response.data);
