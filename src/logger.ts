@@ -1,5 +1,8 @@
 import fs from 'fs';
-import fetch from 'node-fetch';
+import axios from 'axios';
+import path from "node:path";
+import kleur from 'kleur';
+
 
 class Logger {
     private timestamp: string;
@@ -7,6 +10,7 @@ class Logger {
     private message: string;
     private meta: any;
     private filePath: string;
+    private logDir: string;
     private elasticEndpoint: string;
 
 
@@ -15,8 +19,13 @@ class Logger {
         this.level = level;
         this.message = message;
         this.meta = {};
-        this.filePath = './timestamp-log.txt';
+        this.logDir = './logs';
+        this.filePath = path.join(this.logDir, `${new Date().toISOString().split('T')[0]}-log.txt`);
         this.elasticEndpoint = 'http://193.25.218.16:9200';
+
+        if (!fs.existsSync(this.logDir)) {
+            fs.mkdirSync(this.logDir, { recursive: true });
+        }
     }
 
     static info(message) {
@@ -37,7 +46,24 @@ class Logger {
     }
 
     toConsole() {
-        console.log(`[${this.timestamp}] [${this.level.toUpperCase()}]`, this.message, this.meta);
+        const colorMap = {
+            info: kleur.blue,
+            warn: kleur.yellow,
+            error: kleur.red,
+        };
+
+        const colorFunc = colorMap[this.level] || kleur.white;
+
+        console.log('🚀',
+            colorFunc(
+                ` [${this.timestamp}] [${this.level.toUpperCase()}] ${this.message}`
+            )
+        );
+
+        if (Object.keys(this.meta).length) {
+            console.log(kleur.gray('Metadata:'), this.meta);
+        }
+
         return this;
     }
 
@@ -49,37 +75,44 @@ class Logger {
             meta: this.meta,
         }) + '\n';
 
-        fs.appendFile(this.filePath, logString, (err) => {
-            if (err) console.error('Log file write error:', err);
-        });
+        try {
+            if (!fs.existsSync(this.filePath)) {
+                fs.writeFileSync(this.filePath, '');
+            }
+
+            fs.appendFileSync(this.filePath, logString);
+        } catch (err) {
+            console.error('Log file write error:', err);
+        }
 
         return this;
     }
 
-    async toElastic(index = 'logs') {
+    async toElastic(index = 'logs',userId?: string) {
         const url = `${this.elasticEndpoint}/${index}/_doc`;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + Buffer.from('elastic:changeme').toString('base64'),
-        };
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers,
-                body: JSON.stringify({
-                    timestamp: this.timestamp,
-                    level: this.level,
-                    message: this.message,
-                    meta: this.meta,
-                }),
+            const response = await axios.post(url, {
+                timestamp: this.timestamp,
+                level: this.level,
+                message: this.message,
+                meta: this.meta,
+                userId: userId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                auth: {
+                    username: 'elastic',
+                    password: 'changeme'
+                }
             });
 
-            if (!response.ok) {
-                console.error('ElasticSearch log error:', await response.text());
+            if (response.status !== 201) {
+                console.error('ElasticSearch log error:', response.data);
             }
         } catch (error) {
-            console.error('ElasticSearch connection error:', error);
+            console.error('ElasticSearch connection error:', error.message);
         }
 
         return this;

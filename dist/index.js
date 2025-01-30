@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Hashing = exports.CacheKeys = exports.required = exports.validate = exports.PremiumCodeApiClient = exports.ParentSchoolApiClient = exports.TrainingSetApiClient = exports.ArticleApiClient = exports.ChildApiClient = exports.UserApiClient = exports.NotificationApiClient = exports.StreamApiClient = void 0;
+exports.Logger = exports.Hashing = exports.CacheKeys = exports.required = exports.validate = exports.PremiumCodeApiClient = exports.ParentSchoolApiClient = exports.TrainingSetApiClient = exports.ArticleApiClient = exports.ChildApiClient = exports.UserApiClient = exports.NotificationApiClient = exports.StreamApiClient = void 0;
 var StreamApiClient_1 = require("./StreamApiClient");
 Object.defineProperty(exports, "StreamApiClient", { enumerable: true, get: function () { return __importDefault(StreamApiClient_1).default; } });
 var NotificationApiClient_1 = require("./NotificationApiClient");
@@ -28,3 +28,5 @@ var cacheKeys_1 = require("./helpers/cacheKeys");
 Object.defineProperty(exports, "CacheKeys", { enumerable: true, get: function () { return __importDefault(cacheKeys_1).default; } });
 var hashing_1 = require("./hashing");
 Object.defineProperty(exports, "Hashing", { enumerable: true, get: function () { return __importDefault(hashing_1).default; } });
+var logger_1 = require("./logger");
+Object.defineProperty(exports, "Logger", { enumerable: true, get: function () { return __importDefault(logger_1).default; } });
