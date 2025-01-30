@@ -16,7 +16,7 @@ class Logger {
         this.message = message;
         this.meta = {};
         this.filePath = './timestamp-log.txt';
-        this.elasticEndpoint = 'http://193.25.218.16:5601';
+        this.elasticEndpoint = 'http://193.25.218.16:9200';
     }
 
     static info(message) {
@@ -57,10 +57,16 @@ class Logger {
     }
 
     async toElastic(index = 'logs') {
+        const url = `${this.elasticEndpoint}/${index}/_doc`;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + Buffer.from('elastic:changeme').toString('base64'),
+        };
+
         try {
-            const response = await fetch(`${this.elasticEndpoint}/${index}/_doc`, {
+            const response = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({
                     timestamp: this.timestamp,
                     level: this.level,
