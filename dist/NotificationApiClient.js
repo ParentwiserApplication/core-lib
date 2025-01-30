@@ -38,8 +38,8 @@ class NotificationApiClient {
             }
         });
     }
-    sendTaskMail(toEmail_1, notificationSubject_1, notificationContent_1) {
-        return __awaiter(this, arguments, void 0, function* (toEmail, notificationSubject, notificationContent, nameOfUser = '') {
+    sendTaskMail(toEmail, notificationSubject, notificationContent, nameOfUser = '') {
+        return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield this.client.post('/mail/send/task', {
                     toEmail,
