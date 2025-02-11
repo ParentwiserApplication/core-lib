@@ -76,6 +76,18 @@ class UserApiClient {
         }
     }
 
+    async getUsersBatch(userIds:string[]): Promise<any> {
+        try {
+            const response = await this.client.post(`/batch`, {
+                userIds: userIds
+            })
+            return response.data.data
+        } catch (error) {
+            this.handleError(error);
+            throw error;
+        }
+    }
+
     private handleError(error: AxiosError): void {
         if (error.response) {
             console.error('Error Response:', error.response.data);

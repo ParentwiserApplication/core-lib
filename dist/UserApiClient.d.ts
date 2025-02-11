@@ -16,6 +16,7 @@ declare class UserApiClient {
     updateUser(id: string, user: IUpdateUser): Promise<any>;
     makePremium(id: string, premiumEndsAt: Date): Promise<any>;
     getUserAddress(id: string): Promise<any>;
+    getUsersBatch(userIds: string[]): Promise<any>;
     private handleError;
 }
 export default UserApiClient;
