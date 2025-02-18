@@ -20,10 +20,12 @@ class NotificationApiClient {
             headers: token ? { Authorization: `${token}` } : {},
         });
     }
-    sendPushNotification(notificationSubject, notificationContent, pushNotificationTokens, notificationTarget, notificationTargetDetail) {
+    sendPushNotification(scope, userId, notificationSubject, notificationContent, pushNotificationTokens, notificationTarget, notificationTargetDetail) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const response = yield this.client.post('/push/send/notification', {
+                    scope,
+                    userId,
                     notificationSubject,
                     notificationContent,
                     pushNotificationTokens,

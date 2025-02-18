@@ -21,6 +21,8 @@ class NotificationApiClient {
     }
 
     async sendPushNotification(
+        scope:string,
+        userId:string,
         notificationSubject: string,
         notificationContent: string,
         pushNotificationTokens: string[],
@@ -29,6 +31,8 @@ class NotificationApiClient {
     ): Promise<SendPushNotificationResponse> {
         try {
             const response = await this.client.post('/push/send/notification', {
+                scope,
+                userId,
                 notificationSubject,
                 notificationContent,
                 pushNotificationTokens,
